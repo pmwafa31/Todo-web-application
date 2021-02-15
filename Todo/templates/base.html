@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Style</title>
+</head>
+<body>
+
+            {% if user.is_authenticated %}
+
+            <a href="{% url 'create_todos' %}">New Todo</a>
+            <a href="{% url 'current_todos' %}">Current Todos</a>
+            <a href="{% url 'completed_todos' %}">Completed Todos</a>
+
+            <form action="{% url 'logout_user' %}", method="post">
+                {% csrf_token %}
+                <input type="submit", value="Logout">
+            </form>
+
+            {% else %}
+
+            <a href="{% url 'signup_user' %}">Sign Up</a><br>
+            <a href="{% url 'login_user' %}">Login</a>
+
+            {% endif %}
+            <br><br><br>
+            {% block content %}
+            {% endblock %}
+</body>
+</html>

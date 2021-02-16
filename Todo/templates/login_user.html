@@ -5,12 +5,41 @@
     <title>Login</title>
 </head>
 <body>
-    <h3>{{ error }}</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit", value="Login">
-    </form>
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>Login</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {% for field in form %}
+                    <p>
+                      {{ field.label_tag }}<br>
+                      {{ field }}
+
+                    </p>
+                  {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <hr>
+            <div class="text-center">
+                 Need an account? <a href="{% url 'signup_user' %}">Sign Up here</a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
 
 </body>
 </html>

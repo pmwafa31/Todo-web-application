@@ -22,13 +22,13 @@ def signup_user(request):
                 login(request, user)
                 return redirect('current_todos')
             except IntegrityError:
-                return render(request, 'signup_user.html', {'form': UserCreationForm(), 'error': "Username alresdy exist"})
+                return render(request, 'signup_user.html', {'form': UserForm(), 'error': "Username alresdy exist. Please choose a new username"})
         else:
-            return render(request, 'signup_user.html', {'form': UserCreationForm(), 'error' : "Password doesn't match"})
+            return render(request, 'signup_user.html', {'form': UserForm(), 'error' : "Password did not match"})
 
 def login_user(request):
     if request.method == 'GET':
-        return render(request, 'login_user.html', {'form': AuthenticationForm})
+        return render(request, 'login_user.html', {'form': AuthenticationForm()})
     else:
         user = authenticate(request, username = request.POST['username'], password = request.POST['password'])
         if user is None:
